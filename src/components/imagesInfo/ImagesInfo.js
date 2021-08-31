@@ -43,7 +43,10 @@ const Status = {
       
       findImagesAPI
       .fetchImage(this.props.requestTerm, this.props.page)
-      .then(response => {
+        .then(response => {
+        if (response.total === 0) {
+          return this.setState({ status: 'idle' });
+        }
          this.setState(prevState => ({
           images: [ ...response.hits],
           page: prevState.page + 1,
