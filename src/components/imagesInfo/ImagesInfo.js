@@ -39,12 +39,14 @@ const Status = {
       this.setState({
         status: Status.PENDING,
         page: 1,
+        images: [],
       });
       
       findImagesAPI
       .fetchImage(this.props.requestTerm, this.props.page)
         .then(response => {
-        if (response.total === 0) {
+          if (response.total === 0) {
+          this.notify();
           return this.setState({ status: 'idle' });
         }
          this.setState(prevState => ({
