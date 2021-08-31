@@ -1,10 +1,16 @@
-  function fetchImage(term) {
-  return fetch(`https://pixabay.com/api/?key=22396340-e0d4683315286afcf7ffb4767&q=${term}`).then(response => {
+const API_KEY = '22396340-e0d4683315286afcf7ffb4767';
+const BASE_URL = 'https://pixabay.com/api';
+
+function fetchImage(requestTerm, page) {
+
+  const url = `${BASE_URL}/?q=${requestTerm}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`;
+
+  return fetch(url).then(response => {
     if (response.ok) {
       return response.json();
     }
 
-    return Promise.reject(new Error(`No results on request ${term}`));
+    return Promise.reject(new Error(`No results on request ${requestTerm}`));
   });
 }
 

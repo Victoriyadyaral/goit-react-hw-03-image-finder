@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
-import { toast } from 'react-toastify';
-import { ImSearch } from 'react-icons/im';
+import { toast } from "react-toastify";
+import { FaSearch } from 'react-icons/fa';
 import PropTypes from "prop-types";
+
+import s from './Searchbar.module.css'
 
 class Searchbar extends Component {
     state = {
-        requestTerm: ''
-    }
+        requestTerm: '',
+    };
 
     static propTypes = {
     onSubmit: PropTypes.func.isRequired,
   };
 
     handleInputChange = (event) => {
-        this.setState({ requestTerm: event.currentTarget.value });
+        this.setState({ requestTerm: event.currentTarget.value.toLowerCase() });
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
 
         if (this.state.requestTerm.trim() === '') {
-         toast.error('Sorry, that search term has no results. Please try an alternate search term.');
+          toast.error('Sorry, that search term has no results. Please try an alternate search term.');
         return;
     }
 
@@ -35,23 +37,29 @@ class Searchbar extends Component {
 
     render() {
         return (
-            <header className="Searchbar">
-                <form className="SearchForm" onSubmit = {this.handleSubmit}>
-                    <button type="submit" className="SearchForm-button">
-                        <ImSearch style={{ marginRight: 8 }} />
-                       <span className="SearchForm-button-label">Search</span>
-                    </button>
-
+            <header className={s.searchbar}>
+                <h1>Image-finder</h1>
+                <div className={s.searchFormWrap}>
+                <form className={s.searchForm} onSubmit = {this.handleSubmit}>
                     <input
-                      className="SearchForm-input"
+                      className={s.searchFormInput}
                       type="text"
                       autoComplete="off"
                       autoFocus
                       placeholder="Search images and photos"
                       value={this.state.requestTerm}
                       onChange = {this.handleInputChange}                 
-                    />
-                </form>
+                     />
+                        
+                    <button type="submit" className={s.searchFormButton}>
+                            <FaSearch
+                                style={{ marginRight: 8 }}
+                                color="rgb(90, 64, 90)"
+                                size="30px"
+                                aria-label="Search images" />
+                    </button>
+                    </form>
+                    </div>
             </header>
         )
     }
