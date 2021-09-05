@@ -78,8 +78,8 @@ const Status = {
   }
 
   notify = () => {
-    if (this.state.images && this.state.images.length === 12) {
-        toast.info('Your images found. Have a nice viewing')
+    if (this.state.images && this.state.page === 1) {
+        toast.info('Your images found. Have a nice viewing!')
     } else
       if (this.state.images.length === 0) {
         toast.error('No image has been found. Please enter your request again!');  
